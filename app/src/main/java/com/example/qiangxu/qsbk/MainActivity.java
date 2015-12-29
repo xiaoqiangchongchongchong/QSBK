@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.qiangxu.qsbk.adapters.MyAdapter;
+import com.example.qiangxu.qsbk.fragments.BlankFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView menu;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ViewPager pager;
+    private List<String> list;
+    private MyAdapter myAdapter;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +50,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         pager = (ViewPager) findViewById(R.id.viewpager);
 
-        List<String> list = new ArrayList<String>();
+        list = new ArrayList<String>();
         list.add("专享");
         list.add("视频");
         list.add("纯文");
         list.add("纯图");
         list.add("精华");
 
-        pager.setAdapter(new MyAdapter(getSupportFragmentManager(), list));
+        myAdapter = new MyAdapter(getSupportFragmentManager(), list);
+        pager.setAdapter(myAdapter);
 
-        TabLayout tabLayout =(TabLayout) findViewById(R.id.tablayout);
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
 
         tabLayout.setupWithViewPager(pager);
 
@@ -63,24 +68,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_1:
 
-
                 break;
-            case R.id.item_4:
+            case R.id.item_2:
+                list.clear();
+                list.add("糗事列表");
+                myAdapter.notifyDataSetChanged();
+                pager.setCurrentItem(5);
+                pager.setAdapter(myAdapter);
 
-
+                tabLayout.setupWithViewPager(pager);
                 break;
             case R.id.group_1:
 

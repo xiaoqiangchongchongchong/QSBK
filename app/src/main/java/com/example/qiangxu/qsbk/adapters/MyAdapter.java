@@ -29,6 +29,7 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        System.out.println(position + "==========");
         return BlankFragment.newInstance(list.get(position));
     }
 
