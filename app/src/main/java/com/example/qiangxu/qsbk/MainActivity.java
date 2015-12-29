@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.qiangxu.qsbk.adapters.MyAdapter;
+import com.example.qiangxu.qsbk.domain.LeftMenuTitle;
 import com.example.qiangxu.qsbk.fragments.BlankFragment;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView menu;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ViewPager pager;
-    private List<String> list;
+    private List<LeftMenuTitle> list;
     private MyAdapter myAdapter;
     private TabLayout tabLayout;
 
@@ -43,12 +44,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //由DrawerLayout控制Toggle
         drawer.setDrawerListener(actionBarDrawerToggle);
         pager = (ViewPager) findViewById(R.id.viewpager);
-        list = new ArrayList<String>();
-        list.add("专享");
-        list.add("视频");
-        list.add("纯文");
-        list.add("纯图");
-        list.add("精华");
+        list = new ArrayList<LeftMenuTitle>();
+//        list.add("专享");
+//        list.add("视频");
+//        list.add("纯文");
+//        list.add("纯图");
+//        list.add("精华");
+        list.add(new LeftMenuTitle("共享",1));
+        list.add(new LeftMenuTitle("视频",2));
+        list.add(new LeftMenuTitle("纯文",3));
+        list.add(new LeftMenuTitle("纯图",4));
+        list.add(new LeftMenuTitle("精华",5));
         myAdapter = new MyAdapter(getSupportFragmentManager(), list);
         pager.setAdapter(myAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tablayout);

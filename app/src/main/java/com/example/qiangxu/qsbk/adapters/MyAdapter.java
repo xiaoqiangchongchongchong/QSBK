@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.qiangxu.qsbk.domain.LeftMenuTitle;
 import com.example.qiangxu.qsbk.fragments.BlankFragment;
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
  */
 public class MyAdapter extends FragmentPagerAdapter {
 
-    private List<String> list;
+    private List<LeftMenuTitle> list;
 
 
-    public MyAdapter(FragmentManager fm, List<String> list) {
+    public MyAdapter(FragmentManager fm, List<LeftMenuTitle> list) {
         super(fm);
         this.list = list;
     }
@@ -29,12 +30,11 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        System.out.println(position + "==========");
         return BlankFragment.newInstance(list.get(position));
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return list.get(position);
+        return list.get(position).getTitle();
     }
 }

@@ -14,6 +14,6 @@ import retrofit.http.Query;
 public interface QsbkService {
 
     @GET("article/list/{type}")
-    Call<Response> getList(@Path("type")String type, @Query("page")int page);
+    Call<com.example.qiangxu.qsbk.domain.Suggest> getList(@Path("type")String type, @Query("page")int page);
 
 }
