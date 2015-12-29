@@ -45,11 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(actionBarDrawerToggle);
         pager = (ViewPager) findViewById(R.id.viewpager);
         list = new ArrayList<LeftMenuTitle>();
-//        list.add("专享");
-//        list.add("视频");
-//        list.add("纯文");
-//        list.add("纯图");
-//        list.add("精华");
         list.add(new LeftMenuTitle("共享",1));
         list.add(new LeftMenuTitle("视频",2));
         list.add(new LeftMenuTitle("纯文",3));

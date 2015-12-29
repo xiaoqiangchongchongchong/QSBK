@@ -1,15 +1,20 @@
 package com.example.qiangxu.qsbk.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.qiangxu.qsbk.R;
+import com.example.qiangxu.qsbk.TextActivity;
 import com.example.qiangxu.qsbk.domain.Suggest;
 import com.example.qiangxu.qsbk.utils.getIcon;
 import com.example.qiangxu.qsbk.utils.getImage;
@@ -25,10 +30,11 @@ import java.util.List;
 /**
  * Created by QiangXu on 2015/12/29.
  */
-public class GongXiangAdapter extends BaseAdapter {
+public class GongXiangAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Context context;
     private List<Suggest.ItemsEntity> list;
+    private Suggest.ItemsEntity item;
 
     public GongXiangAdapter(Context context){
         this.context = context;
@@ -56,14 +62,32 @@ public class GongXiangAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.fragment_item, parent, false);
             convertView.setTag(new ViewHolder(convertView));
         }
-        Suggest.ItemsEntity item = list.get(position);
+        LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.list_item);
+        item = list.get(position);
+//        linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, TextActivity.class);
+//                context.startActivity(intent);
+//            }
+//        });
+
+        linearLayout.setOnClickListener(this);
+
         ViewHolder holder = (ViewHolder) convertView.getTag();
         if(item.getUser() != null){
             holder.user_name.setText(item.getUser().getLogin());
-            Picasso.with(context).load(getIcon.getIconURL(item.getUser().getId(),
-                    item.getUser().getIcon()))
-                    .transform(new CircleTransFormation())
-                    .into(holder.user_icon);
+            if(item.getUser().getIcon() != "") {
+                Picasso.with(context).load(getIcon.getIconURL(item.getUser().getId(),
+                        item.getUser().getIcon()))
+                        .transform(new CircleTransFormation())
+                        .into(holder.user_icon);
+            }else{
+                Picasso.with(context).load(R.mipmap.ic_launcher)
+                        .transform(new CircleTransFormation())
+                        .into(holder.user_icon);
+            }
+
         }else{
             holder.user_name.setText("匿名用户");
             holder.user_icon.setImageResource(R.mipmap.ic_launcher);
@@ -76,21 +100,10 @@ public class GongXiangAdapter extends BaseAdapter {
         }
 
         holder.content.setText(item.getContent().trim());
-
-//        if(item.getImage() == null && item.getPic_url() != null){
-//            System.out.println(item.getPic_url() + "============================");
-//            Log.d("text", item.getPic_url());
-//
-//            Picasso.with(context)
-//                    .load(item.getPic_url())
-//                    .resize(parent.getWidth()/2, 0)
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .error(R.mipmap.ic_launcher)
-//                    .into(holder.image);
-//        }
         if(item.getImage() == null){
-            //Log.d("text", "no Url");
-            if(item.getPic_url() != null){
+            if(item.getPic_url() == null){
+                holder.image.setVisibility(View.GONE);
+            }else {
                 holder.image.setVisibility(View.VISIBLE);
                 Picasso.with(context)
                         .load(item.getPic_url())
@@ -99,8 +112,6 @@ public class GongXiangAdapter extends BaseAdapter {
                         .placeholder(R.mipmap.ic_launcher)
                         .error(R.mipmap.ic_launcher)
                         .into(holder.image);
-            }else {
-                holder.image.setVisibility(View.INVISIBLE);
             }
         }else{
             holder.image.setVisibility(View.VISIBLE);
@@ -119,6 +130,15 @@ public class GongXiangAdapter extends BaseAdapter {
     public void addAll(Collection<? extends Suggest.ItemsEntity> collection){
         list.addAll(collection);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(context, TextActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("item", item);
+//        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     private static class ViewHolder{
