@@ -3,24 +3,25 @@ package com.example.qiangxu.qsbk.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qiangxu.qsbk.DetailActivity;
 import com.example.qiangxu.qsbk.R;
-import com.example.qiangxu.qsbk.TextActivity;
 import com.example.qiangxu.qsbk.domain.Suggest;
 import com.example.qiangxu.qsbk.utils.getIcon;
 import com.example.qiangxu.qsbk.utils.getImage;
 import com.example.qiangxu.qsbk.views.CircleTransFormation;
 import com.example.qiangxu.qsbk.views.VideoDraw;
-import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * Created by QiangXu on 2015/12/29.
  */
-public class GongXiangAdapter extends BaseAdapter implements View.OnClickListener {
+public class GongXiangAdapter extends BaseAdapter implements  View.OnClickListener {
 
     private Context context;
     private List<Suggest.ItemsEntity> list;
@@ -62,19 +63,16 @@ public class GongXiangAdapter extends BaseAdapter implements View.OnClickListene
             convertView = LayoutInflater.from(context).inflate(R.layout.fragment_item, parent, false);
             convertView.setTag(new ViewHolder(convertView));
         }
-        LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.list_item);
+        LinearLayout clickToDetailLayout = (LinearLayout) convertView.findViewById(R.id.clickToDetail);
+        ImageButton pingLunClick = (ImageButton) convertView.findViewById(R.id.btnpinglun);
+        pingLunClick.setTag(position);
+        pingLunClick.setOnClickListener(this);
+
+        clickToDetailLayout.setTag(position);
+        clickToDetailLayout.setOnClickListener(this);
         item = list.get(position);
-//        linearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, TextActivity.class);
-//                context.startActivity(intent);
-//            }
-//        });
 
-        linearLayout.setOnClickListener(this);
-
-        ViewHolder holder = (ViewHolder) convertView.getTag();
+        final ViewHolder holder = (ViewHolder) convertView.getTag();
         if(item.getUser() != null){
             holder.user_name.setText(item.getUser().getLogin());
             if(item.getUser().getIcon() != "") {
@@ -90,7 +88,9 @@ public class GongXiangAdapter extends BaseAdapter implements View.OnClickListene
 
         }else{
             holder.user_name.setText("匿名用户");
-            holder.user_icon.setImageResource(R.mipmap.ic_launcher);
+            Picasso.with(context).load(R.mipmap.ic_launcher)
+                    .transform(new CircleTransFormation())
+                    .into(holder.user_icon);
         }
         if(item.getType() != null) {
             if (item.getType().equals("hot")) {
@@ -124,6 +124,22 @@ public class GongXiangAdapter extends BaseAdapter implements View.OnClickListene
         }
         holder.pinglun.setText(item.getComments_count() + "");
         holder.fenxiang.setText(item.getShare_count() + "");
+
+        holder.btnhaoxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.btnhaoxiao.setImageResource(R.mipmap.operation_support_press);
+                holder.btnbuhaoxiao.setImageResource(R.mipmap.operation_unsupport);
+            }
+        });
+
+        holder.btnbuhaoxiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.btnhaoxiao.setImageResource(R.mipmap.operation_support);
+                holder.btnbuhaoxiao.setImageResource(R.mipmap.operation_unsupport_press);
+            }
+        });
         return convertView;
     }
 
@@ -134,10 +150,11 @@ public class GongXiangAdapter extends BaseAdapter implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(context, TextActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("item", item);
-//        intent.putExtras(bundle);
+        Intent intent = new Intent(context, DetailActivity.class);
+        Bundle bundle = new Bundle();
+        int Clickposition = (int) v.getTag();
+        bundle.putSerializable("item", list.get(Clickposition));
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
@@ -152,6 +169,8 @@ public class GongXiangAdapter extends BaseAdapter implements View.OnClickListene
         private TextView haoxiao;
         private TextView pinglun;
         private TextView fenxiang;
+        private ImageButton btnhaoxiao;
+        private ImageButton btnbuhaoxiao;
 
         public ViewHolder(View itemView){
             user_icon = (ImageView) itemView.findViewById(R.id.user_icon);
@@ -163,6 +182,8 @@ public class GongXiangAdapter extends BaseAdapter implements View.OnClickListene
             haoxiao = (TextView) itemView.findViewById(R.id.haoxiao);
             pinglun = (TextView) itemView.findViewById(R.id.pinglun);
             fenxiang = (TextView) itemView.findViewById(R.id.fenxiang);
+            btnhaoxiao = (ImageButton) itemView.findViewById(R.id.btnhaoxiao);
+            btnbuhaoxiao = (ImageButton) itemView.findViewById(R.id.btnbuhaoxiao);
         }
 
 

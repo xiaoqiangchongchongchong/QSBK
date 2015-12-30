@@ -10,72 +10,67 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.qiangxu.qsbk.R;
-import com.example.qiangxu.qsbk.adapters.GongXiangAdapter;
+import com.example.qiangxu.qsbk.adapters.CommonAdapter;
+import com.example.qiangxu.qsbk.domain.Common;
 import com.example.qiangxu.qsbk.domain.LeftMenuTitle;
-import com.example.qiangxu.qsbk.domain.Suggest;
-import com.example.qiangxu.qsbk.interfaces.QsbkService;
+import com.example.qiangxu.qsbk.interfaces.CommonService;
+import com.example.qiangxu.qsbk.views.MyListView;
 
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
+import retrofit.Response;
 import retrofit.Retrofit;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BlankFragment extends Fragment implements Callback<Suggest> {
+public class DetailFragment extends Fragment implements Callback<Common> {
 
-    private Call<com.example.qiangxu.qsbk.domain.Suggest> call;
-    private GongXiangAdapter adapter;
-    private ListView listView;
-    //private Call<com.example.qiangxu.qsbk.domain.Suggest> call;
+    private Call<com.example.qiangxu.qsbk.domain.Common> call;
+    private CommonAdapter adapter;
 
-    public BlankFragment() {
+    public DetailFragment() {
         // Required empty public constructor
     }
 
-    public static BlankFragment newInstance(LeftMenuTitle leftMenuTitle){
-        Bundle args = new Bundle();
 
-        BlankFragment fragment = new BlankFragment();
+    public static DetailFragment newInstance(LeftMenuTitle leftMenuTitle, long suggestId){
+        Bundle args = new Bundle();
+        DetailFragment fragment = new DetailFragment();
         args.putString("text", leftMenuTitle.getTitle());
         args.putInt("flag", leftMenuTitle.getFlag());
+        args.putLong("suggestId", suggestId);
         fragment.setArguments(args);
-
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View ret =  inflater.inflate(R.layout.fragment_blank, container, false);
-        listView = (ListView) ret.findViewById(R.id.common_list);
+        View ret =  inflater.inflate(R.layout.fragment_detail, container, false);
         return ret;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        listView = (ListView) view.findViewById(R.id.common_list);
+        MyListView myListView = (MyListView) view.findViewById(R.id.list_pinglun);
         int flag = getArguments().getInt("flag");
+
         if(flag == 1){
-            adapter = new GongXiangAdapter(getActivity());
-            listView.setAdapter(adapter);
+            adapter = new CommonAdapter(getActivity());
+            myListView.setAdapter(adapter);
             Retrofit build = new Retrofit.Builder().baseUrl("http://m2.qiushibaike.com").addConverterFactory(GsonConverterFactory.create()).build();
-            QsbkService service = build.create(QsbkService.class);
-            call = service.getList("suggest", 1);
+            CommonService service = build.create(CommonService.class);
+            long suggesId = getArguments().getLong("suggestId");
+            call = service.getList(suggesId, "comments", 1);
             call.enqueue(this);
-
-            //listView.setOnItemClickListener(this);
-
         }
     }
 
     @Override
-    public void onResponse(retrofit.Response<com.example.qiangxu.qsbk.domain.Suggest> response, Retrofit retrofit) {
+    public void onResponse(Response<Common> response, Retrofit retrofit) {
         adapter.addAll(response.body().getItems());
     }
 
@@ -84,5 +79,4 @@ public class BlankFragment extends Fragment implements Callback<Suggest> {
         t.printStackTrace();
         Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
     }
-
 }

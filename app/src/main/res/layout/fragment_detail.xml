@@ -1,0 +1,22 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.qiangxu.qsbk.fragments.DetailFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.example.qiangxu.qsbk.views.MyListView
+        android:id="@+id/list_pinglun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.example.qiangxu.qsbk.views.MyListView>
+
+    <!--<ListView-->
+        <!--android:id="@+id/list_pinglun"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+    <!--</ListView>-->
+
+</FrameLayout>

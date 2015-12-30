@@ -249,7 +249,7 @@ public class Suggest implements Serializable{
             return type;
         }
 
-        public static class UserEntity {
+        public static class UserEntity implements Serializable {
             @SerializedName("avatar_updated_at")
             private int avatar_updated_at;
             @SerializedName("last_visited_at")

@@ -44,54 +44,60 @@
             android:layout_centerVertical="true"
             android:textColor="#666" />
     </RelativeLayout>
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:text="见学长夫妇，说是最近俩人一直分床睡，已经好几个月了。我还以为是关系冷淡期，关切地问怎么回事。学长含羞一笑，说俩人共同爱好太多，三观太和，永远有聊不完的话题，一不小心就唠到三四点，再愉快地啪啪一下，第二天根本没法起床上班...秀得我泪流满面…"
-        />
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        />
     <LinearLayout
+        android:id="@+id/clickToDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="见学长夫妇，说是最近俩人一直分床睡，已经好几个月了。我还以为是关系冷淡期，关切地问怎么回事。学长含羞一笑，说俩人共同爱好太多，三观太和，永远有聊不完的话题，一不小心就唠到三四点，再愉快地啪啪一下，第二天根本没法起床上班...秀得我泪流满面…"
+            />
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="好笑 "/>
-        <TextView
-            android:id="@+id/haoxiao"
-            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="431"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" ·评论 "/>
-        <TextView
-            android:id="@+id/pinglun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30"/>
-        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="好笑 "/>
+            <TextView
+                android:id="@+id/haoxiao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="431"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" ·评论 "/>
+            <TextView
+                android:id="@+id/pinglun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30"/>
+            <TextView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" ·分享 "/>
-        <TextView
-            android:id="@+id/fenxiang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" ·分享 "/>
+            <TextView
+                android:id="@+id/fenxiang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"/>
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -103,11 +109,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/operation_support"
+            android:enabled="false"
             android:background="@null"/>
         <ImageButton
             android:id="@+id/btnbuhaoxiao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:src="@mipmap/operation_unsupport"
             android:layout_toRightOf="@id/btnhaoxiao"
             android:background="@null"/>

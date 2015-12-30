@@ -7,6 +7,7 @@ public class LeftMenuTitle {
 
     private String title;
     private int flag;
+    private long suggestId;
 
     public LeftMenuTitle(String title, int flag) {
         this.title = title;
@@ -27,5 +28,13 @@ public class LeftMenuTitle {
 
     public void setFlag(int flag) {
         this.flag = flag;
+    }
+
+    public long getSuggestId() {
+        return suggestId;
+    }
+
+    public void setSuggestId(long suggestId) {
+        this.suggestId = suggestId;
     }
 }

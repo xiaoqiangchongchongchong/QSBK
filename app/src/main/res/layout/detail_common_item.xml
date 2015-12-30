@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:layout_centerVertical="true">
+
+    <ImageView
+        android:id="@+id/common_user_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="6dp"
+        />
+
+    <TextView
+        android:id="@+id/common_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/common_user_icon"
+        android:textSize="14sp"
+        android:textColor="#000"
+        android:text="匿名用户"
+        />
+
+    <TextView
+        android:id="@+id/common_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="估计没脸看糗百了。"
+        android:layout_toRightOf="@+id/common_user_icon"
+        android:layout_below="@+id/common_user_name"
+        android:layout_marginTop="3dp"
+        android:textColor="#666" />
+
+    <TextView
+        android:id="@+id/common_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/common_user_icon"
+        android:layout_below="@+id/common_content"
+        android:layout_marginTop="3dp"
+        android:textSize="12sp"
+        android:textColor="#ccc"
+        android:text="16小时前"/>
+
+    <ImageButton
+        android:id="@+id/dianzan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_toLeftOf="@+id/dianzan_count"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="5dp"
+        android:src="@mipmap/qiuyoucircle_like"
+        />
+    <TextView
+        android:id="@+id/dianzan_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textColor="#999"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="7dp"
+        android:textSize="9sp"
+        android:text="12"/>
+
+    <ImageButton
+        android:id="@+id/jubao_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/abc_ic_menu_moreoverflow_normal_holo_light"
+        android:layout_alignParentRight="true"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/jubao_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#999"
+        android:layout_toLeftOf="@id/jubao_icon"
+        android:textSize="9sp"
+        android:text="2"/>
+
+
+
+
+
+</RelativeLayout>

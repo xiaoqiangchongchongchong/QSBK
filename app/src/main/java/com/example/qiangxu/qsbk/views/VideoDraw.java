@@ -24,8 +24,9 @@ public class VideoDraw implements Transformation {
     public Bitmap transform(Bitmap source) {
         Bitmap result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas=new Canvas(result);
+        canvas.drawBitmap(source, 0, 0, null);
         Bitmap  bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.video_play_normal);
-        canvas.drawBitmap(bitmap, source.getWidth() / 2, source.getHeight()/2, null);
+        canvas.drawBitmap(bitmap, source.getWidth() / 2 - (bitmap.getWidth()/2), (source.getHeight()/2 - bitmap.getHeight()/2), null);
         source.recycle();
         return result;
     }
