@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by QiangXu on 2015/12/29.
@@ -125,6 +126,8 @@ public class GongXiangAdapter extends BaseAdapter implements  View.OnClickListen
         holder.pinglun.setText(item.getComments_count() + "");
         holder.fenxiang.setText(item.getShare_count() + "");
 
+
+
         holder.btnhaoxiao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,6 +148,11 @@ public class GongXiangAdapter extends BaseAdapter implements  View.OnClickListen
 
     public void addAll(Collection<? extends Suggest.ItemsEntity> collection){
         list.addAll(collection);
+        notifyDataSetChanged();
+    }
+
+    public void clear(){
+        list.clear();
         notifyDataSetChanged();
     }
 

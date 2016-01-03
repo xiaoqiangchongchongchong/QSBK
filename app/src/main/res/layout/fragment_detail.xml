@@ -12,6 +12,14 @@
         android:layout_height="wrap_content">
     </com.example.qiangxu.qsbk.views.MyListView>
 
+    <!--<com.example.qiangxu.qsbk.views.MyListView-->
+            <!--android:id="@+id/list_pinglun"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+
+    <!--</com.example.qiangxu.qsbk.views.MyListView>-->
+
     <!--<ListView-->
         <!--android:id="@+id/list_pinglun"-->
         <!--android:layout_width="match_parent"-->

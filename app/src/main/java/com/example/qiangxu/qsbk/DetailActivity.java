@@ -8,15 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qiangxu.qsbk.adapters.DetailAdapter;
+import com.example.qiangxu.qsbk.domain.Common;
 import com.example.qiangxu.qsbk.domain.LeftMenuTitle;
 import com.example.qiangxu.qsbk.domain.Suggest;
+import com.example.qiangxu.qsbk.fragments.DetailFragment;
+import com.example.qiangxu.qsbk.interfaces.CommonService;
 import com.example.qiangxu.qsbk.utils.getIcon;
 import com.example.qiangxu.qsbk.utils.getImage;
 import com.example.qiangxu.qsbk.views.CircleTransFormation;
@@ -25,6 +30,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -36,9 +45,12 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        final ScrollView scrollView = (ScrollView) findViewById(R.id.detail_layout);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Suggest.ItemsEntity item = (Suggest.ItemsEntity) bundle.getSerializable("item");
+        final Suggest.ItemsEntity item = (Suggest.ItemsEntity) bundle.getSerializable("item");
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -121,6 +133,46 @@ public class DetailActivity extends AppCompatActivity {
                 holder.btnbuhaoxiao.setImageResource(R.mipmap.operation_unsupport_press);
             }
         });
+
+        //final int page = 2;
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            private  int page = 2;
+            private  DetailFragment detailFragment;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int scrollY=v.getScrollY();
+                        int height=v.getHeight();
+                        int scrollViewMeasuredHeight=scrollView.getChildAt(0).getMeasuredHeight();
+                        if(scrollY==0){
+                            System.out.println("滑动到了顶端 view.getScrollY()="+scrollY);
+                        }
+                        if((scrollY+height)==scrollViewMeasuredHeight){
+                            long id = item.getId();
+
+                            Log.d("page", page + "");
+                            detailFragment = new DetailFragment();
+                            detailFragment.initData(1,id,page);
+                            //DetailFragment
+                            page ++;
+
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+
+
+
     }
 
     private class ViewHolder {

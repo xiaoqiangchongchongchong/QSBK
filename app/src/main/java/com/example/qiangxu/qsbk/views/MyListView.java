@@ -6,12 +6,15 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 /**
  * Created with IntelliJ IDEA.
  * User: vhly[FR]
  * Date: 15/12/25
  * Email: vhly@163.com
  */
+//public class MyListView extends ListView {
 public class MyListView extends ListView {
 
     public MyListView(Context context, AttributeSet attrs) {
@@ -37,19 +40,19 @@ public class MyListView extends ListView {
         return super.dispatchTouchEvent(ev);
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-
-        int action = ev.getAction();
-
-        switch (action){
-            case MotionEvent.ACTION_MOVE:
-                Log.d("MyListView", "onInterceptTouchEvent move");
-                break;
-        }
-
-        return super.onInterceptTouchEvent(ev);
-    }
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//
+//        int action = ev.getAction();
+//
+//        switch (action){
+//            case MotionEvent.ACTION_MOVE:
+//                Log.d("MyListView", "onInterceptTouchEvent move");
+//                break;
+//        }
+//
+//        return super.onInterceptTouchEvent(ev);
+//    }
 
     // -------------------------
     // 使用 onMeasure 方法，来解决尺寸高度的问题，以及事件冲突的问题；

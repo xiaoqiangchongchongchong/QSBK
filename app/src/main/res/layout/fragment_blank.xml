@@ -4,15 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.qiangxu.lesson1.BlankFragment"
+    xmlns:ptr = "http://schemas.android.com/apk/res-auto"
     android:background="#ecebeb">
 
-    <ListView
+    <!--<in.srain.cube.views.ptr.PtrClassicFrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/store_house_ptr_frame"-->
+        <!-->-->
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/common_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="8dp"
-        android:divider="#ecebeb">
+        android:divider="#ecebeb"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrListViewExtrasEnabled="true"
+        ptr:ptrOverScroll="true"
+        />
 
-    </ListView>
+
+
+    <!--</in.srain.cube.views.ptr.PtrClassicFrameLayout>-->
 
 </FrameLayout>
